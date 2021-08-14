@@ -1,0 +1,29 @@
+# nginx reverse proxy server configuration
+#
+server {
+	listen 8080;
+	server_name domainname.com www.domain.com;
+
+	location / {
+        # If the port is 8080
+        proxy_pass "http://185.53.89.175:8080";
+         
+        # If the port is 8080
+        proxy_pass "http://185.53.89.175:80";
+        }
+	
+}
+
+server {
+
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	server_name domain.com www.domain.com;
+
+   ssl_certificate /etc/ssl/cert_chain.crt; 
+   ssl_certificate_key /etc/ssl/domainname.com.key;
+	location / {
+        proxy_pass "http://185.53.89.175:443";
+       
+        }
+}

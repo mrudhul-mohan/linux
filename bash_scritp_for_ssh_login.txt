@@ -1,0 +1,28 @@
+#!/bin/bash
+
+## Enter yes or no eg: sshpass=yes NB: when you're using password otherwise sshpass=no
+sshpass=no
+
+## Server login details
+
+serverip="34.234.215.131"
+username="centos"
+sshport="5022"
+KEY="/home/mrudhul/Documents/supportsages/pem/hca.pem"
+password="BqaK91TChphw6"
+if
+	sshpass=yes;
+
+then
+	sshpass -p ${password} ssh -D8080 ${username}@${serverip} -p${sshport}
+
+if
+	sshpass=no;
+
+then
+
+	ssh -i ${KEY} ${username}@${serverip}
+
+fi
+fi
+

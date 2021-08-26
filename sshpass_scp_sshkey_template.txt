@@ -1,0 +1,44 @@
+#!/bin/bash
+
+SSHPASS="value"
+
+## Server login details
+
+SERVER_IP="ip"
+USERNAME="user_name"
+SSHPORT="port_number"
+PASSWORD="passwd"
+KEY="-i /home/mrudhul/.ssh/id_rsa"
+#EXTRA_OPT="-o LogLevel=ERROR -o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPath="~/.ssh/%r@%h-%p" -o ControlPersist=300"
+
+if  [[ $SSHPASS = "yes"  &&  $USERNAME = ""  &&  $SSHPORT = "" ]];
+
+then
+        sshpass -p ${PASSWORD} scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P 22 /home/mrudhul/.ssh/id_rsa.pub root@${SERVER_IP}:~/.ssh/authorized_keys
+	sleep 5
+	ssh ${KEY} root@${SERVER_IP} -p 22
+
+fi
+
+
+if [[ $SSHPASS = "yes"  &&  $USERNAME = "" ]];
+
+then
+        sshpass -p ${PASSWORD} scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P${SSHPORT} /home/mrudhul/.ssh/id_rsa.pub root@${SERVER_IP}:~/.ssh/authorized_keys
+	sleep 5
+	ssh ${KEY} root@${SERVER_IP} -p${SSHPORT}
+
+fi
+
+
+
+if [ $SSHPASS = yes ];
+
+then
+        sshpass -p ${PASSWORD} scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P${SSHPORT} /home/mrudhul/.ssh/id_rsa.pub ${USERNAME}@${SERVER_IP}:~/.ssh/authorized_keys
+	sleep 5
+	ssh ${KEY} ${USERNAME}@${SERVER_IP} -p${SSHPORT}
+
+else
+        ssh ${EXTRA_OPT} -i ${KEY} ${USERNAME}@${SERVER_IP} -p${SSHPORT}
+fi

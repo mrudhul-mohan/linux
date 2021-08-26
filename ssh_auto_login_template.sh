@@ -14,7 +14,7 @@ EXTRA_OPT="-o LogLevel=ERROR -o StrictHostKeyChecking=no -o ControlMaster=auto -
 if [ $SSHPASS = yes ]
 
 then
-        sshpass -p ${PASSWORD} ssh -D8080 ${EXTRA_OPT} ${USERNAME}@${SERVER_IP} -p${SSHPORT}
+        sshpass -p ${PASSWORD} ssh ${EXTRA_OPT} ${USERNAME}@${SERVER_IP} -p${SSHPORT}
 
 else
 
